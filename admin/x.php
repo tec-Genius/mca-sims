@@ -1,6 +1,6 @@
 <?php
 include('connect.php');
-//session_start();
+session_start();
 $id=$_SESSION['id'];
 $myauth=mysqli_query($conn,"select * from user where user_id='$id'")or die(mysqli_error($conn));
 if(mysqli_num_rows($myauth)>0){

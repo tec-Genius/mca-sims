@@ -2,7 +2,7 @@
 <?php include('session.php'); ?>
 <?php include('functions.php'); ?>
 <?php
-$added_by=$_COOKIE['id'];
+$added_by=$_SESSION['id'];
 ?>
 <body onLoad="StartTimers();" onmousemove="ResetTimers();">
 
@@ -16,7 +16,7 @@ $added_by=$_COOKIE['id'];
             <div class="container">
 
                 <div class="row-fluid">
-                    <div class="span2">
+                    <div class="span2" style="margin-top: 50px;">
                         <!-- left nav -->
                         <ul class="nav nav-tabs nav-stacked">
 
@@ -53,7 +53,7 @@ $i=mysqli_query($conn,"select * from interest") or die(mysqli_error($conn));
 									 echo $row['firstname']." ".$row['lastname']."(".$row['student_id'].")";?></b></div>
 									 <?php
 $myauth=mysqli_query($conn,"select * from user where user_id='$added_by' and auth=1")or die(mysqli_error($conn));
-if((mysqli_num_rows($myauth)==0) || ($added_by !=5)){?>
+if(mysqli_num_rows($myauth)==0){?>
 <div class="alert alert-danger"><i class="icon-remove-sign"></i>&nbsp;Access Denied.Wrong account</div>
 <?php } else 
         {?>
@@ -84,39 +84,15 @@ if((mysqli_num_rows($myauth)==0) || ($added_by !=5)){?>
                                              
                                               <select name="date" required style="width:140px"> 
                                               <option value="">Payment Date</option>
-                                             
-                                               <option value="1">01</option>
-                                              <option value="2">02</option>
-                                              <option value="3">03</option>
-                                               <option value="4">04</option>
-                                                <option value="5">05</option>
-                                                 <option value="6">06</option>
-                                                 
-                                                  <option value="7">07</option>
-                                                   <option value="8">08</option>
-                                                    <option value="9">09</option>
-                                                      <option value="10">10</option>
-                                                        <option value="11">11</option>
-                                                          <option value="12">12</option>
-                                                          <option value="13">13</option>
-                                                          <option value="14">14</option>
-                                                          <option value="15">15</option>
-                                                          <option value="16">16</option>
-                                                          <option value="17">17</option>
-                                                          <option value="18">18</option>
-                                                          <option value="19">19</option>
-                                                          <option value="20">20</option>
-                                                          <option value="21">21</option>
-                                                          <option value="22">22</option>
-                                                          <option value="23">23</option>
-                                                          <option value="24">24</option>
-                                                          <option value="25">25</option>
-                                                          <option value="26">26</option>
-                                                          <option value="27">27</option>
-                                                          <option value="28">28</option>
-                                                          <option value="29">29</option>
-                                                          <option value="30">30</option>
-                                                            <option value="31">31</option>
+                                             <?php    
+                                             for($i=1;$i<=31;$i++)
+                                               {
+                                                ?>
+                                                <option value="<?php  echo $i ?>"><?php echo $i; ?></option>
+                                                <?php
+                                               }
+                                             ?>
+                                               
                                               </select>
                                             </div>
                                         </div>
@@ -133,7 +109,7 @@ if((mysqli_num_rows($myauth)==0) || ($added_by !=5)){?>
 										
 										$already= mysqli_query($conn,"select * from student_fees where id='$UID' and year='$year' and sem='$sem'") or die(mysqli_error($conn));
 						                $f=mysqli_fetch_array($already); 
-										echo "<font color='red'>Amount already paid:&nbsp;".number_format($f['total_amount'])." Balance:&nbsp;".number_format($f['fee_balance'])."</font>";
+										if($f) echo "<font color='red'>Amount already paid:&nbsp;".number_format($f['total_amount'])." Balance:&nbsp;".number_format($f['fee_balance'])."</font>";
 										
 										?>
                               
@@ -156,7 +132,7 @@ if((mysqli_num_rows($myauth)==0) || ($added_by !=5)){?>
 										  $rows=mysqli_num_rows($available);										  
 										  //if($mode==1){ $percent=($row2['fulltime']*0.25);}else{$percent=($row2['distance']*0.25);
 										  //}
-										  $int=$fees['interest'];
+										  //$int=$fees['interest'];
 										  //if(((($mode==1)&&($int==0))&&($amount< $percent))|| ((($mode==2)&&($int==0))&&($amount< $percent)))
 										  //{
 										  //$msg="amount is less than 25% of student fees";
@@ -164,26 +140,29 @@ if((mysqli_num_rows($myauth)==0) || ($added_by !=5)){?>
 										  //else
 										 // {
 											 $se=mysqli_query($conn,"select * from student_fee_amounts where year=$year and sem=$sem") or die("error ho".mysqli_error($conn));
-$row2=mysqli_fetch_array($se);
-										  $interests= calculateinterest($id,$month,$date);
-										  $interests= round($interests,0);
-						if($row['mode']==1){$total= $row2['fulltime']+ $interests; $yfee=$row2['fulltime'];} 
-						if($row['mode']==2){ $total=$row2['distance']+$interests;$yfee=$row2['distance'];}
-						if($row['mode']==3){ $total=$row2['biu']+$interests;$yfee=$row2['biu'];} 
-						if($row['mode']==4){ $total=$row2['nobiu']+$interests;$yfee=$row2['nobiu'];}
+                                          $row2=mysqli_fetch_array($se);
+										  //$interests= calculateinterest($id,$month,$date);
+										 // $interests= round($interests,0);
+						if($row['mode']==1){$total= $row2['fulltime']; $yfee=$row2['fulltime'];} 
+						if($row['mode']==2){ $total=$row2['distance'];$yfee=$row2['distance'];}
+						if($row['mode']==3){ $total=$row2['biu'];$yfee=$row2['biu'];} 
+						if($row['mode']==4){ $total=$row2['nobiu'];$yfee=$row2['nobiu'];}
 						if($rows==0){
 						
 						
 						if ((($mode==1)&&($amount> $row2['fulltime'])) || (($mode==2) && ($amount>$row2['distance'])) || (($mode==3) && ($amount>$row2['biu']))|| (($mode==4) && ($amount>$row2['nobiu']))){
-						 $msg="amount more than fees amount if there is interest enter amount seperately";
+						               $fultime=$row2['fulltime'];
+                                        $distance= $row2['distance'];
+
+                            echo "amount more than fees amount".$year." ".$sem;
 						}
 						else
 						{
 						
 						
 						 $balace=$total - $amount;	
-						if($balace==0){$exam_no=GenKey(); $interests=0;}else {$exam_no=" ";$interests=$interests;}
-					 mysqli_query($conn,"insert into student_fees (id,amount_paid,fee_balance,year, sem ,last_pay_date,user_id,interest,exam_no,total_amount,pmonth,pay_day) values (' $id','$amount','$balace','$year','$sem','$new','$added_by','$interests','$exam_no','$amount','$month','$date')")or die("error here".mysqli_error($conn));
+						if($balace==0){$exam_no=GenKey(); }else {$exam_no=" ";}
+					 mysqli_query($conn,"insert into student_fees (id,amount_paid,fee_balance,year, sem ,last_pay_date,user_id,exam_no,total_amount,pmonth,pay_day) values (' $id','$amount','$balace','$year','$sem','$new','$added_by','$exam_no','$amount','$month','$date')")or die("error here".mysqli_error($conn));
 					  ?>
                  <form method="post" action="recipt.php">
                 <button class="btn btn-success" type="submit" name="send">&nbsp;Export Receipt to word</button>
@@ -200,7 +179,7 @@ $row2=mysqli_fetch_array($se);
                       <?php
 					  
 					 $msg="Fees  added click back to go back";
-					 $msg2=feeRepofirst($UID,$amount,$amount,$interests,$balace,$new,$yfee,$total);
+					 $msg2=feeRepofirst($UID,$amount,$amount,$balace,$new,$yfee,$total);
 					 ?>
 					  <form id="form2">
                       <div id="dvContainer1">
@@ -223,40 +202,34 @@ $row2=mysqli_fetch_array($se);
 					}
 			         }
 							 else{       
-							 $mylimit=$fees['fee_balance']+$int;  
+							 $mylimit=$fees['fee_balance'];  
 							             
 										  if($amount>$mylimit){
 									   $msg="Entered amount is greater than total fees amounts ";
 									   }
 									   else
 									   {
-						                    $interests=calculateinterest($id,$month,$date);
-											 $interests=round($interests,0);	  
+						                    //$interests=calculateinterest($id,$month,$date);
+											 //$interests=round($interests,0);	  
 						                      $pmonth=$fees['pmonth'];
 											  $pday=$fees['pay_day'];
 											  $pyear=$fees['year'];
 										  $total_pay=$fees['total_amount']+$amount;
 										  
-										   if(($month==$pmonth)&&($pday==$date)&& ($year==$pyear)){
-										   $interests=0;								    
-										  }
-										  else
-										  {
-										  $interests=$interests;
-										  }
-										  $total_balace=  ($interests+$fees['fee_balance'])-$amount;
-										   $total_interest= $fees['interest']+$interests;
+										   
+										  $total_balace=  $fees['fee_balance']-$amount;
+										  // $total_interest= $fees['interest']+$interests;
 										  
-									      if($total_balace==0){$exam_no=GenKey(); $total_interest=0;}else {$exam_no=" "; $total_interest= $total_interest;}
+									      if($total_balace==0){$exam_no=GenKey(); }else {$exam_no=" ";}
 										 
 										 
 										   mysqli_query($conn,"update total_revenue set t_revenue=t_revenue+$amount,duplicate=duplicate+$amount where year='$year' and sem='$sem'") or die(mysqli_error($conn));
 			                             
-			mysqli_query($conn,"update student_fees set pay_day='$date',exam_no='$exam_no',fee_balance='$total_balace',interest='$total_interest',total_amount='$total_pay', amount_paid='$amount',last_pay_date='$new',pmonth='$month' where year='$year' and sem='$sem' and id='$id'"); 
+			mysqli_query($conn,"update student_fees set pay_day='$date',exam_no='$exam_no',fee_balance='$total_balace',total_amount='$total_pay', amount_paid='$amount',last_pay_date='$new',pmonth='$month' where year='$year' and sem='$sem' and id='$id'"); 
 			         
 			$msg="Fees info updated" ;
 			
-			$msg2=feeRepoupdate($UID,$amount,$total_pay,$new,$total_interest,$total_balace,$yfee);
+			//$msg2=feeRepoupdate($UID,$amount,$total_pay,$new,$total_interest,$total_balace,$yfee);
 			
 			
 		?>
@@ -266,7 +239,6 @@ $row2=mysqli_fetch_array($se);
                 <input type="hidden" value="<?php echo $UID ?>" name="uid" >
                  <input type="hidden" value="<?php echo $amount ?>" name="amount" >
                 <input type="hidden" value="<?php echo $total_pay ?>" name="totalpay" >
-                <input type="hidden" value="<?php echo $total_interest ?>" name="int" >
                 <input type="hidden" value="<?php echo $total_balace?>" name="bal" >
                  <input type="hidden" value="<?php echo  $yfee ?>" name="semfee" >
                
@@ -274,8 +246,7 @@ $row2=mysqli_fetch_array($se);
                 <form id="form1">
     <div id="dvContainer">
         <?php
-		printreciept2($UID,$amount,$total_pay,$total_interest,$total_balace,$yfee,$new);
-		echo "pmoth=".$pmonth."pyear=".$pyear ."pday=".$pday;
+		printreciept2($UID,$amount,$total_pay,$total_balace,$yfee,$new);
 		       ?>
                 </div>
                 <input type="button" value="Print Reciept" id="btnPrint" class="btn btn-success" />

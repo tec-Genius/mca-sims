@@ -364,12 +364,16 @@ $query = mysqli_query($conn,"select * from results where year='$exam_num_year'  
 				</div>
                 <!-- end slider -->
             </div>
-
+            
         </div>
+    </div>
         <?php include('footer.php'); ?>
     </div>
+    
 </div>
+
 </div>
+
 </body>
 </html>
 

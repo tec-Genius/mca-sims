@@ -42,10 +42,10 @@ $subjects = mysqli_query($conn,"select * from subject where teacher_id='$session
                                     <i class="icon-double-angle-right icon-large"></i>
                                 </div>  
                             </a></li>                
-                        <li>
+                            <li>
                         <?php
-						if(isset($_COOKIE['level'])){
-                        $l=$_COOKIE['level'];
+						if(isset($_SESSION['level'])){
+                        $l=$_SESSION['level'];
 							 if(($l==2)||($l==1)||($l==9)){   ?>
                             <a href="teacher_class.php"><?php }else{?><a href="#" onClick="alert('ACCESS DENIED')"><?php }}?> <i class="icon-group icon-large"></i>&nbsp;Modify past results
                                 <div class="pull-right">
@@ -191,17 +191,14 @@ $us=mysqli_fetch_array($user);
                             <td><?php echo  $student_row['cys']; ?></td>
                             <td><?php echo  $student_row['stud_pnone']; ?></td>
                               <td><?php echo  $student_row['stud_email']; ?></td>
-                            <td><?php if($student_row['mode']==1)echo "F" ;if($student_row['mode']==2) echo "D"; ?></td>
+                            <td><?php if($student_row['mode']==1)echo "WeekDay" ;if($student_row['mode']==2) echo "Weekend"; ?></td>
                              <td><?php echo  $student_row['stud_current_year']; ?></td>
                             <td> <?php echo  $student_row['current_sem']; ?></td>
-                            
-                            
-
                             </tr>
                         <?php } ?>
                         </tbody>
                     </table>
-                    <a href="mail2.php">send email</a>
+                    
                     <!-- end slider -->
                 </div>
             </div>

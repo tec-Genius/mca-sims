@@ -12,7 +12,7 @@
                     </a>
                     <div class="nav-collapse collapse">
                         <!-- .nav, .navbar-search, .navbar-form, etc -->
-                       <img src="admin/images/log.png" height="10" width="40" /> <font color="#666666"><b>MCA SIMS</b></font>
+                       <img src="admin/img/logo.png" height="10" width="40" /> <font color="#666666"><b>MCA SIMS</b></font>
                         <div class="pull-right">
                             <form class="navbar-search pull-left">
                                 

@@ -123,12 +123,12 @@ $i++;
                                         <th width="69">StudentID</th>
                                       <th width="90" >Student Name</th>
                                       <th width="111">Amount Paid</th>
-                                      <th width="60">Interest(<?php if($status==2) echo"<font color='red'>Inactive</font>"; else  echo"<font color='red'>Active</font>"; ?>)</th> 
+                                      <!--<th width="60">Interest(<?php //if($status==2) echo"<font color='red'>Inactive</font>"; else  echo"<font color='red'>Active</font>"; ?>)</th> -->
                                       <th width="54">Balance</th>               
                                       <th width="130">Last Pay Date</th>
                                       <th width="96">Exam Number</th>
                                       <th width="66">Added By</th>
-                                      <th width="100">Action</th>
+                                      <th width="60">Action</th>
                                     </tr>
                         
                                 </thead>
@@ -153,8 +153,10 @@ else
 								   $sem=checksem();
 								    $student_fees=mysqli_query($conn,"select * from student_fees where id=$ID and year='$year' and sem='$sem'") or die("error here" .mysqli_error($conn));
 									$fee=mysqli_fetch_array($student_fees);
+                                    if($fee)
 									 $fee_added_by=mysqli_query($conn,"select* from user where user_id='$fee[user_id]' ") or die("mysq error".mysqli_error($conn));
-									 $found=mysqli_fetch_array($fee_added_by);
+									 if($fee)
+                                     $found=mysqli_fetch_array($fee_added_by);
 									 
 									 
 								   
@@ -183,13 +185,13 @@ else
                                     
                                     <td><?php echo  $row['student_id']; ?></td>
                                     <td><?php echo $row['lastname']." ".$row['firstname']; ?></td>
-                                    <td><?php echo  number_format($fee['total_amount']); ?></td>
-                                    <td><?php echo number_format(  $fee['interest']); ?></td>
-                                    <td><?php echo  number_format($fee['fee_balance'],2); ?></td>
-                                     <td><?php echo  $fee['last_pay_date']; ?></td>
-                                    <td><?php echo  $fee['exam_no']; ?></td>
+                                    <td><?php if($fee) echo  number_format($fee['total_amount']); ?></td>
+                                   <!-- <td><?php //if($fee)echo number_format(  $fee['interest']); ?></td> -->
+                                    <td><?php if($fee)echo  number_format($fee['fee_balance'],2); ?></td>
+                                     <td><?php if($fee)echo  $fee['last_pay_date']; ?></td>
+                                    <td><?php if($fee)echo  $fee['exam_no']; ?></td>
                                      
-                                      <td><?php echo  $found['lastname']; ?></td>
+                                      <td><?phpif($fee) echo  $found['lastname']; ?></td>
                                     
                                     <td>
                                         <a rel="tooltip"  title="Enter fees" id="d<?php echo  $ID; ?>" href="enterfees.php?uid=<?php echo  $ID; ?>" class="btn btn-success"><i class="icon-plus-sign icon-large"></i></a>

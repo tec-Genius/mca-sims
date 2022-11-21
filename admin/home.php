@@ -9,21 +9,6 @@ $se=mysqli_query($conn,"select * from expenses where year='$year' and exp_sem='$
 $subs=mysqli_query($conn,"select * from course") or die("here".mysqli_error($conn));
 ?>
 <body onLoad="StartTimers();" onmousemove="ResetTimers();">
- <?php 
-$sels=mysqli_query($conn,"select * from agree");
-$status=mysqli_fetch_array($sels);
-if($status){
-if($status['x']==1 && $_SESSION['level']!=9) {
- ?>
-                                                                         
-                                        <div class="alert alert-danger"><i class="icon-remove-sign"></i>&nbsp;ERR:7450XX  Please Consult the system admin</div>
-
-                                        <?php
-}
-}
-else
-{
-?>  
 <div class="row-fluid">
         <div class="span12">
             <?php include 'navbar.php'; ?>
@@ -263,6 +248,6 @@ else
 
         </div>
     </div>
-<?php }?>
+<?php ?>
 </body>
 </html>

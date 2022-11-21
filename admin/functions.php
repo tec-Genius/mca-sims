@@ -875,7 +875,7 @@ function clean($con,$str) {
 			include('connect.php');
 			
 			            if(isset($_GET['send'])){//open if isset
-							$prog=$_GET['sub'];
+							$prog=$_GET['sub'];;
 							$year=$_GET['year'];
 							$sem=$_GET['sem'];
 							$sel=$_GET['sel'];
@@ -887,9 +887,9 @@ function clean($con,$str) {
                            
 		if($sel==''){ //open sel
       if($cyear==5)
-     $query = mysqli_query($conn,"select distinct stud_year,student_id,uid,firstname,studsem,surname from results where  prog='$prog' and year='$year' and sem='$sem' ") or die(mysqli_error($conn));
+     $query = mysqli_query($conn,"select distinct uid , stud_year,student_id,firstname,studsem,surname from results where  prog='$prog' and year='$year' and sem='$sem' ") or die(mysqli_error($conn));
 	else
-$query = mysqli_query($conn,"select distinct stud_year,studsem,student_id,uid,firstname,surname from results where  prog='$prog' and year='$year' and sem='$sem' and stud_year='$cyear'") or die(mysqli_error($conn));
+$query = mysqli_query($conn,"select distinct  uid ,stud_year,studsem,student_id,firstname,surname from results where  prog='$prog' and year='$year' and sem='$sem' and stud_year='$cyear'") or die(mysqli_error($conn));
  $total=mysqli_num_rows($query);
 		 if($total>0){ //open total>0
 		 ?>
@@ -908,7 +908,7 @@ $query = mysqli_query($conn,"select distinct stud_year,studsem,student_id,uid,fi
 <td colspan="4"> 
 <table border="0" style=" font-family:Cambria; width:90%" align="left">          
 <tr>
-<td colspan="4" align="center"><h2  style="color:#000000; font-family:Cambria; font-weight:600;">BLANTYRE INTERNATIONAL UNIVERSITY</h2></td></tr>
+<td colspan="4" align="center"><h2  style="color:#000000; font-family:Cambria; font-weight:600;">MALAWI COLLEGE OF ACCOUNTANCY</h2></td></tr>
                            <td colspan="4" align="center"><h5><font face="Times New Roman, Times, serif"><span style="border-bottom:1px solid;"><?php echo $year;  ?>&nbsp;<?php  if($sem==1)echo "January-June"; else echo"July-December" ?> End Of Semester Examination Results</span></font></h5></td>
 						   </tr>
                            
@@ -927,7 +927,7 @@ $query = mysqli_query($conn,"select distinct stud_year,studsem,student_id,uid,fi
 						   <td align="left">Student Semester:</td><td><?php echo $row['studsem']?></td>
 						  </tr>
 						   <tr>
-						   <td align="left">Exam Number:</td><td><?php echo $NUM['exam_no']?></td>
+						   <td align="left">Exam Number:</td><td><?php if($NUM) echo $NUM['exam_no']?></td>
 						  </tr>
                            <tr>
 						   <td align="left">&nbsp;</td><td></td>
@@ -955,13 +955,17 @@ $query = mysqli_query($conn,"select distinct stud_year,studsem,student_id,uid,fi
 							 {// open subjects found
                                
 							   if(mysqli_num_rows($student2)==0){
-							   echo "<span align='center' >Please consult the accounts office</span>";
+								?>
+								<div class="alert alert-info" style="width:40%"><i class="icon icon-remove-circle"></i>&nbsp;Student should consult the accounts office</div>
+								<?php
 							  }
 							  else
 							   { //open paid
                                  $student3 = mysqli_query($conn,"select * from student_fees where id='$uid' and year='$year' and sem='$sem' and fee_balance >0 ") or die("here".mysqli_error($conn));
                                                              if(mysqli_num_rows($student3)>0) {
-                                                             echo "<span>Please consult the accounts office</span>";
+																?>
+                                                             <div class="alert alert-info" style="width:40%"><i class="icon icon-remove-circle"></i>&nbsp;Student should consult the accounts office</div>
+															 <?php
 															}
                                                               else
                                                                {//open no balance
@@ -1078,7 +1082,7 @@ $query = mysqli_query($conn,"select distinct stud_year,studsem,student_id,uid,fi
                             <?php      
 						 } //close subject found
 						}//close first loop
-						
+						 echo $sem;
 						
 						?>  
                           <!-- Report -->
@@ -1452,7 +1456,7 @@ THIS IS AN AUTOMATED RESPONSE.
 	 
 	 
 	 
-	 function feeRepofirst($id,$amount,$tamountp,$intr,$bal,$date,$ttf,$fint)
+	 function feeRepofirst($id,$amount,$tamountp,$bal,$date,$ttf,$fint)
 	 {
 		 include('connect.php');
 $sel=mysqli_query($conn,"select * from student where id='$id'") or die("error ho".mysqli_error($conn));
@@ -1543,6 +1547,7 @@ $sid=$row['student_id'];
 					include('connect.php');
 					$cv= mysqli_query($conn,"select * from results where uid='$student' and comment='F' and repeated='0'");
 							  $get=mysqli_fetch_array($cv);
+							  if($get)
 							  if($get['sem']!=checksem()){
                              $repeat_courses = mysqli_query($conn,"select * from results where uid='$student' and comment='F' and repeated='0'");
 							if(mysqli_num_rows($repeat_courses)>0){ 
@@ -1604,7 +1609,6 @@ if($sem==1)$sem="Jan-Jun"; else $sem="July -Dec";
 	 Amount paid: $am\n
 	 Total Amount paid: $total\n
 	 Total Fees for Semester:$ttf\n
-	 Total Late Payment Interest:$int\n
 	 Balance: $bal\n
 	 
 	 
@@ -1659,7 +1663,7 @@ $this_id=$row['id'];
 	?>
 <table width="915"  border="0" align="center" width="90%">
   <tr><td rowspan="2"><img src="images/logo.png" width="50" height="50"/></td>
-  <td colspan="2"><h4>BLANTYRE INTERNATIONAL UNIVERSITY</h4></td></tr>
+  <td colspan="2"><h4>Malawi College of Accountancy</h4></td></tr>
     <tr><td colspan="2"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FEES PAYMENT RECIEPT</span></td>
   </tr>
   <tr><td colspan="2"></td></tr>    
@@ -1674,10 +1678,6 @@ $this_id=$row['id'];
             <tr>
               <th width="392" align="left">Fees Amount</th>
               <td width="508">MWK<?php echo number_format($ttf);?></td>
-            </tr>
-            <tr>
-              <th align="left">Interest: </th>
-              <td>MWK<?php echo number_format($intr)?></td>
             </tr>
             <tr>
               <th align="left">Total Amount:</th>
@@ -1704,7 +1704,7 @@ $this_id=$row['id'];
 	<?php
 	 }
 	 
-	 function printreciept2($id,$am,$total,$int,$bal,$ttf,$new)
+	 function printreciept2($id,$am,$total,$bal,$ttf,$new)
 	 {
 		 include('connect.php');
 $sel=mysqli_query($conn,"select * from student where id='$id'") or die("error ho".mysqli_error($conn));
@@ -1721,6 +1721,7 @@ $this_id=$row['id'];
   //$num=mysqli_num_rows($selc);
    $querry=mysqli_query($conn,"select * from student_fees where id ='$this_id' and year='$year' and sem='$sem2' and exam_no<>''") or die(mysqli_error($conn));
   $exa=mysqli_fetch_array( $querry);
+  if($exa)
   $exano=$exa['exam_no'];
  
 // Add image elements
@@ -1728,8 +1729,8 @@ $this_id=$row['id'];
 
 	?>
 <table width="915"  border="0" align="center" width="90%">
-  <tr><td rowspan="2"> <img src="images/logo.png" width="50" height="50"/></td>
-  <td colspan="2"><h4>BLANTYRE INTERNATIONAL UNIVERSITY</h4></td></tr>
+  <tr><td rowspan="2"> <img src="img/logo.png" width="50" height="50"/></td>
+  <td colspan="2"><h4>Malawi College of Accountancy</h4></td></tr>
     <tr><td colspan="2"><span >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FEES PAYMENT RECIEPT</span></td>
   </tr>
   <tr><td colspan="2"></td></tr>    
@@ -1737,7 +1738,7 @@ $this_id=$row['id'];
      <tr><td>Programme:</td><td colspan="2"><?php echo $row['cys'] ?> &nbsp;&nbsp;<?php  if ($row['mode']==1) echo "Full time";  if ($row['mode']==2) echo "Distance"; if ($row['mode']==3) echo "(BIU Undergraduate)";  if ($row['mode']==4) echo "(Non BIU Undergraduate)"; ?></td></tr>
       <tr><td>Payment:</td><td colspan="2">Tuition Fees</td></tr>
        <tr><td>PaymentDate:</td><td colspan="2"><?php echo $new ?></td></tr>
-       <tr><td>Exam Number:</td><td colspan="2"><?php echo $exano; ?></td></tr>
+       <tr><td>Exam Number:</td><td colspan="2"><?php if($exa)echo $exano; ?></td></tr>
         <tr><td><div style="border:2px  dotted; width:100%; font-size:10px; font-weight:bold; text-align: center; line-height:1em; ">FEES ONCE PAID ARE NEITHER REFUNDABLE NOR TRANSFERABLE</div></td>
           <td colspan="2">
           <table width="70%" border="0" align="right">
@@ -1745,10 +1746,7 @@ $this_id=$row['id'];
               <th width="392" align="left">Fees Amount:</th>
               <td width="508">MWK<?php echo number_format($ttf);?></td>
             </tr>
-            <tr>
-              <th  align="left"> Interest: </th>
-              <td>MWK<?php echo number_format($int)?></td>
-            </tr>
+            
             <tr>
               <th  align="left">Amount Paid:</th>
               <td>MWK<?php echo number_format($am) ?></td>

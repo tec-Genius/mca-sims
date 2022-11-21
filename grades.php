@@ -326,8 +326,15 @@ $subj_id=$rowsub['subject_id'];
                                     <td><span id="ass1<?php echo $id; ?>"><?php if($result) echo $result['assign_1'] ;?></span></td>
                                     <td><span id="ass2<?php echo $id; ?>"><?php if($result)echo $result['assign_2'] ; ?></span></td>
                                     <td><span id="exam<?php echo $id; ?>"><?php if($result)echo $result['EOS'] ; ?></span></td>
-                                    <td><span id="fgrade<?php echo $id; ?>"><?phpif($result) echo $result['fgrade'] ;?></span></td>
-                                    <td><span id="rm<?php echo $id; ?>"><?phpif($result) if($result['assign_1']==0 ||$result['assign_2'] ==0 ||$result['EOS'] ==0) echo 'N/A'; else echo $result['comment'] ;?></span></td>
+                                    <td><span id="fgrade<?php echo $id; ?>"><?php if($result) echo $result['fgrade'] ;?></span></td>
+                                   <?php if($result){
+                                    if($result['assign_1']==0 ||$result['assign_2'] ==0 ||$result['EOS'] ==0) $comment= 'N/A';
+                                     else $comment= $result['comment'];
+                                   }
+                                   else
+                                   $comment="N/A";
+                                     ?>
+                                    <td><span id="rm<?php echo $id; ?>"><?php echo $comment ;?></span></td>
                                     <td>
         <input type="radio" name="ass_no" id="no" value="1">1&nbsp;
                                 <input type="radio" name="ass_no" id="inputEmail" value="2">2&nbsp;

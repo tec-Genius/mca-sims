@@ -92,7 +92,7 @@ $user_row = mysqli_fetch_array($user_query);
 <div class="hero-unit-3">
                 <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong><?php echo $student_row['firstname'];?></strong>&nbsp;Welcome. <span class="pull-right">Programme:<?php echo $_COOKIE['pro'];?> ,Current year:<?php echo $_COOKIE['year'];?>, Semester:<?php echo $_COOKIE['ssem'];?></span>
+                    <strong><?php echo $user_row['firstname'];?></strong>&nbsp;Welcome. <span class="pull-right">Programme:<?php echo $_SESSION['pro'];?> ,Current year:<?php echo $_SESSION['year'];?>, Semester:<?php echo $_SESSION['ssem'];?></span>
                 </div>
                 <div class="slider-wrapper theme-default">
 

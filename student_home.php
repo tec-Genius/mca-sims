@@ -1,8 +1,7 @@
 <?php
 include ('session.php');
 include('header.php');
-include('admin/functions.php');
-                
+include('admin/functions.php');             
 $user_query = mysqli_query($conn,"select * from student where id='$session_id'") or die(mysqli_error($conn));
 $user_row = mysqli_fetch_array($user_query);
 ?>
@@ -95,7 +94,9 @@ $user_row = mysqli_fetch_array($user_query);
 <div class="hero-unit-3">
                 <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong><?php echo $user_row['lastname']." ".$user_row['firstname'];?>,</strong>&nbsp;Welcome. <span class="pull-right">Programme:<?php echo $_SESSION['pro'];?> ,Current year:<?php echo $_SESSION['year'];?>, Semester:<?php echo $_SESSION['ssem'];?></span>
+                    <strong><?php echo $user_row['lastname']." ".$user_row['firstname'];?>,</strong>&nbsp;Welcome.
+                     <span class="pull-right">Programme:<?php echo $_SESSION['pro'];?> ,Current year:<?php echo $_SESSION['year'];?>, 
+                     Semester:<?php echo $_SESSION['ssem'];?></span>
                 </div>
                 <div class="slider-wrapper theme-default">
 				<?php 
@@ -123,11 +124,12 @@ $user_row = mysqli_fetch_array($user_query);
 		 if($total>0){// open if results found
 			 $query2 = mysqli_query($conn,"select * from results where year='$exam_num_year'  and sem='$exam_sem_num' and uid ='$session_id'") or die(mysqli_error($conn));
 			 $preqry=mysqli_fetch_array($query2);
+            
 			 
 		 ?>
 		
          <div class="alert alert-success"><b>Current Results:</b>&nbsp;Year&nbsp;<?php echo $preqry['stud_year'] ?>&nbsp;, Semester:<?php echo $preqry['studsem']   ?>&nbsp;<b><?php if(($exam_sem_num)==1)echo "Jan-June"; else echo"July-Dec"; ?>&nbsp;&nbsp;<?php  echo $exam_num_year?></b> </div>
-                             
+                              
                                    
                                  <table style="width:100%;" class="table-striped table-hover" >
 							    <tr style="font-weight:bold;  text-align:center" class="alert alert-info">
@@ -246,7 +248,7 @@ $user_row = mysqli_fetch_array($user_query);
                 <!-- end slider -->
 				</div>
             </div>
-
+           <?php echo $session_id; ?>
         </div>
         <?php include('footer.php'); ?>
     </div>

@@ -27,8 +27,8 @@
                
                       <?php  include('side_nav.php')  ?>
                   
-                    <?php include"msg.php"?>
-                    <div class="span12" style="border:1px; width:78%; margin-left:22%; margin-top:-520px;">
+        
+                    <div class="span12" style="border:1px; width:78%; margin-left:22%; margin-top:-452px;">
                     
                         <!--slider-->
                         <form method="get" action="repoexam.php">

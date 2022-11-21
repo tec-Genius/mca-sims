@@ -158,16 +158,9 @@ document.getElementById("x").style.visibility="visible";
                           
                             
                             <?php
-							$sell=mysqli_query($conn,"select * from allowmo") or die(mysqli_error($conn));
-							$mo=mysqli_fetch_assoc($sell);
-                            if($mo){
-							$getid=$mo['uid'];
-                            
-							if($getid==1 && $l==9)
-							outputresults2();
-						    else
+							
 								outputresults();
-                            }
+                            
                              ?>   
                         </tbody>
                        
@@ -175,6 +168,7 @@ document.getElementById("x").style.visibility="visible";
                   </table>
                  
 						</div>
+
                 <input type="button" value="Print Results" id="btnPrint2" class="btn btn-success" />
                 </form>
 				

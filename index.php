@@ -45,10 +45,10 @@ if (isset($_POST['login'])) {// start
 				$exam_no_qry = mysqli_query($conn,"select * from student_fees where id='$uid' and exam_no='$stud_pass' and sem='$exam_sem_num' and year='$exam_num_year'") or die(mysqli_error($conn));
 				      if(mysqli_num_rows($exam_no_qry)>0){//open student page
 					  $stud=mysqli_fetch_array($exam_no_qry);
-                    //session_start();
+                     session_start();
                     //session_regenerate_id();
                     
-					$_SESSION["id"]= $row['id'];
+					$_SESSION["id"]= $uid;
                     $_SESSION['year']= $row['stud_current_year'];
                     $_SESSION['ssem']=$row['current_sem'];
 					$_SESSION['pro']=$row['cys'] ;

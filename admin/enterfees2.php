@@ -16,7 +16,7 @@ $added_by=$_SESSION['id'];
             <div class="container">
 
                 <div class="row-fluid">
-                    <div class="span2">
+                    <div class="span2" style="margin-top: 50px;">
                         <!-- left nav -->
                         <ul class="nav nav-tabs nav-stacked">
 
@@ -53,7 +53,7 @@ $i=mysqli_query($conn,"select * from interest") or die(mysqli_error($conn));
 									 echo $row['firstname']." ".$row['lastname']."(".$row['student_id'].")";?></b></div>
 									 <?php
 $myauth=mysqli_query($conn,"select * from user where user_id='$added_by' and auth=1")or die(mysqli_error($conn));
-if((mysqli_num_rows($myauth)==0) || ($added_by !=5)){?>
+if(mysqli_num_rows($myauth)==0){?>
 <div class="alert alert-danger"><i class="icon-remove-sign"></i>&nbsp;Access Denied.Wrong account</div>
 <?php } else 
         {?>

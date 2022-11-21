@@ -7,8 +7,7 @@ $grant_temp=grant_temp_access();
 $user_query = mysqli_query($conn,"select * from teacher where teacher_id='$session_id'") or die(mysqli_error($conn));
 $user_row = mysqli_fetch_array($user_query);
 $subjects = mysqli_query($conn,"select * from subject where teacher_id='$session_id' and category='0'") or die(mysqli_error($conn));
-?>
-             
+?>         
 <body>
     <?php include('navhead_user.php'); ?>
     <div class="container">

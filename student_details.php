@@ -91,7 +91,7 @@ $user_row = mysqli_fetch_array($user_query);
 <div class="hero-unit-3">
                 <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong><?php echo $user_row['firstname'];?></strong>&nbsp;Welcome. <span class="pull-right">Programme:<?php echo $_COOKIE['pro'];?> ,Current year:<?php echo $_COOKIE['year'];?>, Semester:<?php echo $_COOKIE['ssem'];?></span>
+                    <strong><?php echo $user_row['firstname'];?></strong>&nbsp;Welcome. <span class="pull-right">Programme:<?php echo $_SESSION['pro'];?> ,Current year:<?php echo $_SESSION['year'];?>, Semester:<?php echo $_SESSION['ssem'];?></span>
                 </div>
                 <div class="slider-wrapper theme-default">
 <div class="alert alert-info">
@@ -115,7 +115,7 @@ $user_row = mysqli_fetch_array($user_query);
 										   <tr><td>Program of study:</td><td><?php echo$row['cys']?></td> <td>Sponsor Address:</td><td><?php  echo $row['sp_address']?></td></tr>
 										   <tr><td>Adimission year:</td><td><?php  echo $row['addm_year']?></td><td> </td><td> </td>    </tr>
 										   <tr><td>Current Year</td><td><?php echo$row['stud_current_year'] ?></td><td> </td><td> </td></tr>
-										   <tr><td>Current Semester</td><td><?php echo$row['sem'];?></td><td></td><td> </td></tr>
+										   <tr><td>Current Semester</td><td><?php echo $row['current_sem'];?></td><td></td><td> </td></tr>
 										    <tr> <td>Study Mode:</td><td><?php if($row['mode']==1)echo "Full time";else echo "Distance"?> </td><td> </td><td></td></tr>
 										    <tr><td>  Phone number:</td><td> <?php echo $row['stud_pnone']?></td> <td></td><td></td></tr>
 											<tr><td>Email:</td><td><?php echo $row['stud_email'] ?></td><td></td><td> </td></tr>

@@ -36,16 +36,13 @@
 								   $sem=checksem();
 								    $student_fees=mysqli_query($conn,"select * from student_fees where id=$ID and year='$year' and sem='$sem' ") or die("error here" .mysqli_error($conn));
 									$fee=mysqli_fetch_array($student_fees);
-								
+                                    if($fee)
 									 $fee_added_by=mysqli_query($conn,"select* from user where user_id='$fee[user_id]' ") or die("mysq error".mysqli_error($conn));
-									 $found=mysqli_fetch_array($fee_added_by);
-									
-									
-									
-								
-									
+                                     if($fee)
+                                     $found=mysqli_fetch_array($fee_added_by);
+									 if($fee)
 									  $tFees= $fee['total_amount'];
-								   
+                                    
                                         ?>
                                         
 
@@ -71,13 +68,17 @@
                                     
                                     <td><?php echo  $row['student_id']; ?></td>
                                     <td><?php echo $row['firstname']." ".$row['lastname']; ?></td>
-                                    <td><?php if($tFees) echo $tFees  ?></td>
-                                    <td><?php echo number_format(  $fee['interest'])??null; ?></td>
-                                    <td><?php if($fee['fee_balance']) echo   number_format($fee['fee_balance'],2,'.',','); ?></td>
-                                     <td><?php if($fee['last_pay_date']) echo  $fee['last_pay_date']; ?></td>
-                                    <td><?php echo  $fee['exam_no']; ?></td>
+                                    <td><?php if($fee) echo $tFees  ?></td>
+                                   
+                                    <td><?php   if($fee) echo number_format(  $fee['interest'])??null; ?></td>
+                                
+                                    <td><?php  if($fee) if($fee['fee_balance']) echo   number_format($fee['fee_balance'],2,'.',','); ?></td>
+
+                                     <td><?php   if($fee) if($fee['last_pay_date']) echo  $fee['last_pay_date']; ?></td>
                                      
-                                      <td><?php echo  $found['lastname']; ?></td>
+                                    <td><?php   if($fee) echo  $fee['exam_no']; ?></td>
+                                     
+                                      <td><?php   if($fee)echo  $found['lastname']; ?></td>
                                     
                                     <td>
                                         <a rel="tooltip"  title="Enter fees" id="d<?php echo  $ID; ?>" href="enterfees2.php?uid=<?php echo  $ID; ?>" class="btn btn-success"><i class="icon-plus-sign icon-large"></i></a>

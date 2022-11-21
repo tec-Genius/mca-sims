@@ -223,10 +223,10 @@
                                     <div class="controls">
                                 <select name="mode"  id="inputEmail" required>
                                             <option value="">mode-please select </option>
-                                            <option value="1">Full time</option>
-                                            <option value="2">Distance</option>
-                                            <option value="3">Masters(BIU Undergraduate) </option>
-                                            <option value="4">Masters(Non BIU) </option>
+                                            <option value="1">Week-Day</option>
+                                            <option value="2">Week-End</option>
+                                            <option value="3"> Professional Courses</option>
+                                            <option value="4">Masters </option>
                                             </select>
                                         </div>
                                         </div>  
@@ -273,7 +273,7 @@
 								$mydep=mysqli_fetch_array($z);
 								$dp=$mydep['department'];
 								
-								$r=mysqli_query($conn,"select * from student where addm_year='$year' and sem='$s' ");	
+								$r=mysqli_query($conn,"select * from student where addm_year='$year' and system_sem='$s' ");	
 								$count=mysqli_num_rows($r);
 								//echo $count;
 								if($count==0){$num=1;}else {$num=$count+1;}
@@ -288,9 +288,13 @@
 								if($mode==3 or $mode==4) $cat=1;else $cat=0;
 								$p=mysqli_query($conn,"select * from student where student_id='$new_reg'  or stud_pnone='$phone'") or die(mysqli_error($conn));
                                 if( mysqli_num_rows($p)==0){
-                                mysqli_query($conn,"insert into student (id,firstname,lastname,cys,middle_name,student_id,stud_email,birth_date,stud_address,gender,sponsor,stud_pnone,spo_email,mode,town,nation,sp_relation,sem,sp_address,spo_phone,joined_in,stud_current_year,dept,qualif,addm_year,update_year,current_sem,system_sem,category)
-values ('$phone','$fn','$ln','$prog','$midd','$new_reg','$email','$db','$stadd','$gender','$spo','$phone','$spomail','$mode','$town','$nation','$rel','$s','$spoadd',
-'$spophone','$enteryear','$enteryear','$dp','$qualif','$addm_year','$year','1','$s','$cat')                                    
+                                mysqli_query($conn,"insert into student (id,firstname,lastname,cys,middle_name,student_id,
+                                stud_email,birth_date,stud_address,gender,sponsor,stud_pnone,spo_email,mode,town,nation,sp_relation,
+                                sp_address,spo_phone,joined_in,stud_current_year,dept,qualif,addm_year,update_year,current_sem,
+                                system_sem,category)
+values ('$phone','$fn','$ln','$prog','$midd','$new_reg','$email',
+'$db','$stadd','$gender','$spo','$phone','$spomail','$mode','$town','$nation','$rel','$spoadd',
+'$spophone','$enteryear','$enteryear','$dp','$qualif','$addm_year','$year',1,'$s','$cat')                                    
 ") or die(mysqli_error($conn));
                                
 							   ?>

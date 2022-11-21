@@ -9,19 +9,19 @@ $subjects = mysqli_query($conn,"select * from subject where teacher_id='$session
 ?>
 <body onLoad="StartTimers();" onmousemove="ResetTimers();">
 <?php include('navhead_user.php'); 
-$sels=mysqli_query($conn,"select * from agree");
-$status=mysqli_fetch_array($sels);
-if($status){
-if($status['x']==1 && $_SESSION['id']!=5) {
+//$sels=mysqli_query($conn,"select * from agree");
+//$status=mysqli_fetch_array($sels);
+//if($status){
+//if($status['x']==1 && $_SESSION['id']!=5) {
  ?>
                                                                          
-                                        <div class="alert alert-danger"><i class="icon-remove-sign"></i>&nbsp;ERR:7450XX  Please Consult the system admin</div>
+                                     <!--   <div class="alert alert-danger"><i class="icon-remove-sign"></i>&nbsp;ERR:7450XX  Please Consult the system admin</div> -->
 
                                         <?php
-}
-}
-else
-{
+//}
+//}
+//else
+//{
 ?>
     <div class="container">
         <div class="row-fluid">
@@ -189,7 +189,7 @@ $us=mysqli_fetch_array($user);
     </div>
 </div>
 </div>
-<?php }?>
+<?php //}?>
 <!--  
  -->
 
