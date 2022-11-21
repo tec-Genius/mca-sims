@@ -1082,7 +1082,7 @@ $query = mysqli_query($conn,"select distinct  uid ,stud_year,studsem,student_id,
                             <?php      
 						 } //close subject found
 						}//close first loop
-						 echo $sem;
+						
 						
 						?>  
                           <!-- Report -->

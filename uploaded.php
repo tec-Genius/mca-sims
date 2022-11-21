@@ -59,18 +59,18 @@ $subjects = mysqli_query($conn,"select * from subject where teacher_id='$session
                                 </div>
                                 </a>
                                 </li>
-                              <li class="dropdown active">
+                                <li class="dropdown active" >
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-list-alt icon-large"></i>&nbsp;Grades Entry
                                 <div class="pull-right">
                                     <i class="icon-double-angle-right icon-large"></i>
                                 </div>  
                             </a>
-                            <ul class="dropdown-menu" style=" margin-top:-15%;">
+                            <ul class="dropdown-menu" style="margin-left:103%; margin-top:-15%;">
                             <?php
 							 if(mysqli_num_rows($subjects)==0){ echo "No subjects Yet";}
 					        $id=$_SESSION['id'];		
-$user=mysqli_query($conn,"select * from teacher where  teacher_id='$id'") or die("here".mysqli_error($conn));
-$us=mysqli_fetch_array($user);
+                             $user=mysqli_query($conn,"select * from teacher where  teacher_id='$id'") or die("here".mysqli_error($conn));
+                             $us=mysqli_fetch_array($user);
                 
 							while($row = mysqli_fetch_array($subjects)){
 							?>
@@ -80,7 +80,7 @@ $us=mysqli_fetch_array($user);
 							?>
                             <li>
                             <?php
-                            $subjects2 = mysqli_query($conn,"select * from subject where teacher_id='$session_id' and category='1'") or die(mysqli_error($conn));
+                            $subjects2 = mysqli_query($conn,"select * from subject where teacher_id='$session_id'  and category='1'") or die(mysqli_error($conn));
 							if(mysqli_num_rows($subjects2)>0){
 							?>
                             <a href="teacher_home_master.php"> Masters</a></li>
@@ -228,7 +228,7 @@ $us=mysqli_fetch_array($user);
                                             </select>
                                             
                                        <br />     
-                              <input  type="file" name="excel_file" id="excel_file" class="form-control btn btn-success"> 
+                              <input  type="file" name="excel_file" id="excel_file" class="form-control btn btn-success" style="margin-top:8px"> 
                                <?php 
                                
                                }

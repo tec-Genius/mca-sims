@@ -176,7 +176,7 @@ $us=mysqli_fetch_array($user);
                     <strong style="text-decoration:blink"><?php echo $teacher_row['lastname']."   ".$teacher_row['firstname'] ?></strong>&nbsp; welcome.<br> Here are simple instructions on how you can enter grades to have correct results<br>
                     <ol><li>To enter grades please select <b>grade entery</b> and select the subject you want to enter its grade for from the <b>left menu</b></li></li><li> Make sure that the system semester (displayed at the top of the grade entry page ie Jan-June or July-Dec) is correct before entering grades</li><li>Make sure that the subject name appearing to the left top conner(in green color)is really the one you intended to enter its grade for </li><li>To enter a grade select the assignment number for the grade first and then enter the grade and click the <b>save</b> button</li> <li>if you have made a mistake and wants to change a grade just select the assignment number and enter the new grade and click the <b>save</b> button and the  system is going to replace the old grade with the new entered grade
                     so make sure that you selected the correct assignment number before entering the grade otherwise you will replace a wrong grade</li></ol>
-                    <?php echo $_SESSION['id']?>
+                    <?php echo $_SESSION['level']?>
                 </div>
                 <div class="slider-wrapper theme-default">
                   

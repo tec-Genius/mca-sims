@@ -69,7 +69,7 @@ $subjects = mysqli_query($conn,"select * from subject where teacher_id='$session
                             <ul class="dropdown-menu" style="margin-left:103%; margin-top:-15%;">
                             <?php
 							 if(mysqli_num_rows($subjects)==0){ echo "No subjects Yet";}
-					        $id=$_COOKIE['id'];		
+					        $id=$_SESSION['id'];		
 $user=mysqli_query($conn,"select * from teacher where  teacher_id='$id'") or die("here".mysqli_error($conn));
 $us=mysqli_fetch_array($user);
                 
@@ -126,8 +126,8 @@ $us=mysqli_fetch_array($user);
                                      <?php include('update.php');  ?>
                                 <li>
                                <?php 
-							if(isset($_COOKIE['level'])){
-							$l=$_COOKIE['level'];
+							if(isset($_SESSION['level'])){
+							$l=$_SESSION['level'];
 							 if(($l==2)||($l==3) ||($l==1)){   ?>
                             <a href="admin/home.php"><i class="icon-group icon-large"></i>&nbsp;Administration
                                 <div class="pull-right">
